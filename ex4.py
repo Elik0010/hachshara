@@ -1,3 +1,19 @@
+def is_prime(n): #used in later problems
+	if n == 1 or n == 0:
+		return False
+	if n == 2 or n == 3:
+		return True
+	if not n % 2 or not n % 3:
+		return False
+	for i in range(5, n // 2 + 2, 6):
+		#Checking every possible prime number up until half of the subject
+		if not n % i:
+			return False
+		if not n % (i+2):
+			return False
+	return True
+
+
 #4.1
 def print_list(l):
 	print(*l)
@@ -44,30 +60,32 @@ def set_to_zero(l,i):
 
 #4.6
 #a
-l = []
-for i in range(10):
-	for j in range(10):
-		l.append([i,j])
-#b	
-l = []
-for i in range(10):
-	for j in range(i, 10):
-		l.append([i,j])
+def gen_list(x,y):
+	l = []
+	for i in range(x):
+		for j in range(y):
+			l.append([i,j])
+#b
+def gen_list_2(x,y):	
+	l = []
+	for i in range(x):
+		for j in range(i, y):
+			l.append([i,j])
 #c
-for i in range(10):
-	for j in range(i, 10):
-		if is_prime(i) and is_prime(j):
-			print(i,j)
-			l.append(i + j)
+def gen_list_3(x,y):
+	for i in range(x):
+		for j in range(i, y):
+			if is_prime(i) and is_prime(j):
+				l.append(i + j)
 #d
 def eval_arb_poly(x, coef):
 	result = 0
-	enum1 = list(enumerate(coef, 0))
+	enum1 = enumerate(coef, 0)
 	for i, j in enum1:
 		result += (j * (x ** i))
 	return result
 
-eval_arb_poly(2, [4, 3, 2, 1]) #expected output: 26 
+print(eval_arb_poly(2, [4, 3, 2, 1])) #expected output: 26 
 
 #4.7
 '''
