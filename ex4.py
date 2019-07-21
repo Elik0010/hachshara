@@ -43,23 +43,32 @@ def set_to_zero(l,i):
 #see excercise 3
 
 #4.6
+#a
 l = []
 for i in range(10):
 	for j in range(10):
 		l.append([i,j])
-		
+#b	
 l = []
 for i in range(10):
-	for j in range(10):
-		if i < j:
-			l.append([i,j])
-
+	for j in range(i, 10):
+		l.append([i,j])
+#c
 for i in range(10):
-	for j in range(10):
-		if i < j and is_prime(i) and is_prime(j):
+	for j in range(i, 10):
+		if is_prime(i) and is_prime(j):
 			print(i,j)
 			l.append(i + j)
-			
+#d
+def eval_arb_poly(x, coef):
+	result = 0
+	enum1 = list(enumerate(coef, 0))
+	for i, j in enum1:
+		result += (j * (x ** i))
+	return result
+
+eval_arb_poly(2, [4, 3, 2, 1]) #expected output: 26 
+
 #4.7
 '''
 remove yield line and uncomment commented lines
