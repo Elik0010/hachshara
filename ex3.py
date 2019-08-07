@@ -96,3 +96,8 @@ def root(f, a, b): #using false position
 	
 def funct(x): #example function
 	return x ** 2 + 15 * x	
+
+
+
+print(all_primes(55))
+
