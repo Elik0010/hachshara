@@ -31,4 +31,4 @@ def between_primes(a, b):
     except(Exception) as e:
        print("%serror occured" % e)
         
-print(between_primes('',''))
+print(is_prime(49))

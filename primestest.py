@@ -13,6 +13,8 @@ class tester(unittest.TestCase):
         self.assertRaises(ValueError, primes.between_primes('3', 5))
         self.assertRaises(ValueError, primes.between_primes(5, '3'))
         self.assertRaises(ValueError, primes.between_primes('e', 6))
+        self.assertFalse(primes.is_prime(49))
+        self.assertFalse(primes.is_prime(1))
 
         self.assertRaises(primes.RangeError, primes.between_primes(10,5))
 

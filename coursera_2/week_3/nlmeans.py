@@ -53,12 +53,16 @@ def non_local_means(img_file):
 
     axx[1,0].imshow(img, cmap='gray')
     axx[1,0].set_title("Original")
+
     axx[1,1].imshow(img_noise, cmap='gray')
     axx[1,1].set_title("Noisy")
+    
     axx[1,2].imshow(img_denoise_2_1, cmap='gray')
     axx[1,2].set_title("cleaned patch 3")
+
     axx[1,3].imshow(img_denoise_2_2, cmap='gray')
     axx[1,3].set_title("cleaned patch 7")
+    
     axx[1,4].imshow(img_denoise_2_3, cmap='gray')
     axx[1,4].set_title("cleaned patch 11")
 
