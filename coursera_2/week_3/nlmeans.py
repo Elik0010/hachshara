@@ -12,7 +12,7 @@ def to_gray(img):
             img[i,j] = np.dot(img[i,j], [0.2989, 0.5870, 0.1140])
     
     return img[:,:,0]
-'''
+
 def non_local_means(img_file):
     img = imageio.imread(img_file)
 
@@ -68,7 +68,11 @@ def non_local_means(img_file):
 
     
     plt.show()
-'''
+
+def apply_all_2d_matrix(matrix, function, i_start, i_end, j_start, j_end):
+    for i in range(i_start, i_end):
+        for j in range(j_start, j_end):
+            function(matrix[i,j])
 
 
 
@@ -84,6 +88,7 @@ def f_func(img, i, j, x, y):
 
 def c_func(img, i, j):
     result = []
+    img_flat = img.flatten()
     for index, x in np.ndenumerate(img):
         result.append(f_func(img, i, j, index[0], index[1]))
     return sum(result)
@@ -97,11 +102,13 @@ def my_non_local_means(img_file):
 
     cleaned_image = img_noise.copy()  
 
-    for indices, _ in img_noise:
-        result = []
-        for index, _ in img_noise
-            result.append(f_func(img_noise, indices[0], indices[1], index[0], index[1]))
-        cleaned_image[i,j] = (1 / c_func(img_noise, i, j)) * sum(result)
+    for i in range(1, len(img_noise)):
+        for j in range(1, len(img_noise[i])):
+            result = []
+            for x in range(1, len(img_noise)-1):
+                for y in range(1, len(img_noise[x])-1):
+                    result.append(f_func(img_noise, i, j, x, y))
+            cleaned_image[i,j] = (1 / c_func(img_noise, i, j)) * sum(result)
     f, xx = plt.subplots(1,4)
     xx[0].imshow(img)
     xx[1].imshow[img_noise]
