@@ -6,7 +6,7 @@ def my_read_file(filename):
 	for i in file_stream:
 		print(i)
 
-my_read_file('file.txt')
+# my_read_file('file.txt')
 
 
 
@@ -37,7 +37,7 @@ class Wordcount:
 
 	def used_atlease(self, number):
 		result = 0
-		for word, count in self.words_counter.items():
+		for _ , count in self.words_counter.items():
 			if count >= number:
 				result += 1
 
@@ -52,7 +52,7 @@ class Wordcount:
 
 		return
 
-'''
+
 # TEST CODE
 wc = Wordcount("shakespeare.txt")
 print("TOP 20  WORDS")
@@ -63,7 +63,7 @@ print("WORDS USED AT LEAST 5 TIMES")
 wc.used_atlease(5)
 print("200 most used words")
 wc.write_most_used("output.txt", 200)
-'''
+
 
 
 #7.3
@@ -75,7 +75,7 @@ import random as rn
 #a
 def random_integers_to_file(n, a, b, filename):
 	filestream = open(filename, 'w')
-	for i in range(n):
+	for _ in range(n):
 		filestream.write(str(rn.randrange(a,b)) + "\n")
 	filestream.close()
 #b
@@ -104,8 +104,9 @@ def sum_lists(file1, file2, k):
 			result.append((int(j), k-int(j)))
 	return result
 
-
+'''
 random_integers_to_file(2000, 1, 10000, 'test1.txt')
 random_integers_to_file(2000, 1, 10000,'test2.txt')
 print(read_and_return('testfile.txt'))
 print(sum_lists('test1.txt','test2.txt',5000))
+'''

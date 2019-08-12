@@ -1,2 +1,6 @@
 *.jpg
 *.txt
+*.mp4
+*.png
+*.pylintrc
+*.pyc
