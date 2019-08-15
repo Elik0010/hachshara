@@ -1,9 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
 import cv2
-import math
-import scipy
 
 
 def write(*i):
@@ -19,15 +16,15 @@ def PDE(phi, F):
     #dt * dphi = phi(t + dt) - phi(t)
     #dt * dphi + phi(t) = phi(t + dt)
     #phi(t + dt) = phi(t) + dt * F * dphi_norm
-    _, xx = plt.subplots(1,5)
+    # _, xx = plt.subplots(1,5)
     for i in  range(it):
         dphi = np.array(np.gradient(phi))
         # normal = -dphi / np.linalg.norm(dphi)
         # k_curvature = np.linalg.norm(dphi)
-        dphi_norm = np.sqrt(np.sum(dphi ** 2, axis=0))
+        dphi_norm = -np.sqrt(np.sum(dphi ** 2, axis=0))
         phi = phi + dt * dphi_norm * F
-        xx[i].contour(phi, 0)
-    plt.show()
+        plt.contour(phi, 0)
+        plt.show()
 
     
 
@@ -85,7 +82,7 @@ def curve_flow(phi):
     # plt.show()
 '''
 
-
+'''
 def curve_flow(phi):
 
     ds = 5    
@@ -118,21 +115,33 @@ def curve_flow(phi):
         k = np.nan_to_num(k)
         
         dphi = np.array(np.gradient(phi))
-        ddphi = np.array(np.gradient(phi))
+        norm = dphi / np.linalg.norm(dphi)
         dphi_norm = np.sqrt(np.sum(dphi**2, axis=0))
-        
-        #TEMP
-        k = np.array(np.gradient(dphi_norm))
-        k = np.linalg.norm(k, axis=0)
+        ddphi = np.array(np.gradient(dphi_norm))
 
 
-        # k = np.linalg.norm(dphi)
+        ddphi = np.gradient(dphi_norm)
+        print('ddphi \n\n\n %s' % ddphi)
+        print('asdfdghfdsa: \n\n\n\n\n %s'% np.linalg.norm(dphi))
+        n = dphi / np.linalg.norm(dphi)
+        print("n: \n\n %s" % n)
+
+        n = np.where(n == 0, 1, n)
+
+        k = ddphi / (1 + n)
+        k = np.nan_to_num(k)
+        k = np.sqrt(np.sum(k**2, axis=0))
+        print("k:\n\n %s" % k )
+
+
+
         phi = phi + k * dphi_norm * ds
-        # xx[i].contour(phi, 0)
         plt.contour(phi, 0)
+
+
         plt.show()
     # plt.show()
-
+'''
 
 
 '''
@@ -152,7 +161,7 @@ def curve_flow(phi):
         ddx_dss = np.gradient(dx_ds)[0]
         ddy_dss = np.gradient(dy_ds)[0]
 
-        k = np.linalg.norm((dx_ds * ddy_dss - dy_ds * ddx_dss)) / (dx_ds ** 2 + dy_ds ** 2) ** (3/2)
+        k = np.linalg.norm((dx_ds * ddy_dss - dy_ds * ddx_dss)) / (1+ (dx_ds ** 2 + dy_ds ** 2) ** (3/2))
         np.nan_to_num(k)
         
         phi = phi + dt * dphi_norm * k 
@@ -160,9 +169,33 @@ def curve_flow(phi):
         plt.show()
 '''
 
+def curve_flow(phi): #SIMPLE - CURRENT
+    dt = 0.5
+    it = 10
+    
+    for i in range(it):
+        dphi = np.array(np.gradient(phi))
+        dphi_norm = -np.sqrt(np.sum(dphi ** 2, axis=0))
+
+
+        # write(np.amin(dphi_norm), dphi / np.linalg.norm(dphi))
+        dphi = dphi / np.linalg.norm(dphi)
+        dphi_dx = np.gradient(dphi[0])[0]
+        dphi_dy = np.gradient(dphi[1])[1]
+
+        # write(np.amin(dphi_dx), np.amin(dphi_dy))
+        k = (dphi_dx + dphi_dy)
+        
+        phi = phi + dt * dphi_norm * k
+        plt.contour(phi, 0)
+    plt.show()
+
+
+
+
 #TEST CODE
 # F = lambda x: x ** 2
-F = 0.05
+F = 30
 
 
 
@@ -173,9 +206,9 @@ F = 0.05
 # phi = np.random.normal(size=(10,10))
 
 
-phi = np.ndarray((3,3))
-phi.fill(20)
-phi = np.pad(phi, 2 , 'constant', constant_values=0)
+# phi = np.ndarray((30,30))
+# phi.fill(20)
+# phi = np.pad(phi, 20, 'constant', constant_values=0)
 # phi = np.pad(phi, 19 , 'constant', constant_values=5)
 
 
