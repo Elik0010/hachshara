@@ -4,3 +4,4 @@
 *.png
 *.pylintrc
 *.pyc
+.vscode/launch.json
